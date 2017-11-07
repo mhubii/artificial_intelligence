@@ -3,15 +3,15 @@
 ## Set Up Python 2.7
 Run the Anaconda Prompt. From there run the command:
 
-'''
+```
 conda create -n iai_env python=2.7
-'''
+```
 
 This will create a new environment iai_env using python 2.7. Next you need to activate it using
 
-'''
+```
 activate iai_env
-'''
+```
 
 
 ## Useful Links
