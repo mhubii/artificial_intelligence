@@ -1,6 +1,6 @@
 """
     Artificial Intelligence
-    Prof. Björn Ommer
+    Prof. Bjoern Ommer
     WS17/18
 
 
