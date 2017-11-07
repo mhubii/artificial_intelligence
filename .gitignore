@@ -1,0 +1,4 @@
+### assignment template ###
+assignment_template/*.log
+assignment_template/*.aux
+assignment_template/*.synctex.gz
