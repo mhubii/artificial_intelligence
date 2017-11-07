@@ -18,34 +18,30 @@ class Graph:
         self.graph[start][end] = cost
 
 
-class Treesearch:
-    def __init__(self, graph, start, goal):
-        self.graph = graph
-        self.start = start
-        self.goal = goal
-        self.visited_nodes = [start]
-        self.cost_to_reach_node = graph[start]
-        self.goal_not_reached = True
+def tree_search(graph, start, goal):
+    visited_nodes = [start]
+    cost_to_reach_node = graph[start]
+    goal_not_reached = True
 
-        # do some minimal checks
-        if self.start == self.goal:
-            self.goal_not_reached = False
+    # do some minimal checks
+    if start == goal:
+        goal_not_reached = False
 
-    def optimal_path(self):
-        while self.goal_not_reached:
-            # find cheapest not visited step
-            next_cheapest_step = min(self.cost_to_reach_node, key=self.cost_to_reach_node.get)
+    # find optimal path
+    while goal_not_reached:
+        # find cheapest not visited step
+        next_cheapest_step = min(cost_to_reach_node, key=cost_to_reach_node.get)
 
-            if any(node == next_cheapest_step for node in self.visited_nodes):
-                
-            else
+        if any(node == next_cheapest_step for node in visited_nodes):
 
-            # take cheapest step
+        else:
+            pass
 
+        # take cheapest step
 
-            # store path and store visited nodes
+        # store path and store visited nodes
 
-            # return path if goal reached
+        # return path if goal reached
 
 
 
