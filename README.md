@@ -1,6 +1,6 @@
 # Artificial Intelligence
 
-## Set Up Python 2.7
+## Setting up Python 2.7
 Run the Anaconda Prompt. From there run the command:
 
 ```
