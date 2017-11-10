@@ -1,21 +1,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Programming/Coding Assignment
+% Short Sectioned Assignment
 % LaTeX Template
+% Version 1.0 (5/5/12)
 %
 % This template has been downloaded from:
-% http://www.latextemplates.com
+% http://www.LaTeXTemplates.com
 %
 % Original author:
-% Ted Pavlic (http://www.tedpavlic.com)
+% Frits Wenneker (http://www.howtotex.com)
 %
-% Note:
-% The \lipsum[#] commands throughout this template generate dummy text
-% to fill the template out. These commands should all be removed when 
-% writing assignment content.
-%
-% This template uses a Perl script as an example snippet of code, most other
-% languages are also usable. Configure them in the "CODE INCLUSION 
-% CONFIGURATION" section.
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -23,47 +18,41 @@
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
 
-\documentclass{article}
+\documentclass[paper=a4, fontsize=11pt]{scrartcl} % A4 paper and 11pt font size
 
-\usepackage{fancyhdr} % Required for custom headers
-\usepackage{lastpage} % Required to determine the last page for the footer
-\usepackage{extramarks} % Required for headers and footers
-\usepackage[usenames,dvipsnames]{color} % Required for custom colors
-\usepackage{graphicx} % Required to insert images
-\usepackage{listings} % Required for insertion of code
-\usepackage{courier} % Required for the courier font
-\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
-\usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage{graphicx} % Required to insert images
+\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+\usepackage{listings} % Required for insertion of code
 
-% Margins
-\topmargin=-0.45in
-\evensidemargin=0in
-\oddsidemargin=0in
-\textwidth=6.5in
-\textheight=9.0in
-\headsep=0.25in
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
 
-\linespread{1.1} % Line spacing
+\usepackage{sectsty} % Allows customizing section commands
+\allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
 
-% Set up the header and footer
-\pagestyle{fancy}
-\lhead{\assignAuthorName} % Top left header
-\chead{\assignClass: \assignTitle} % Top center head
-\rhead{\firstxmark} % Top right header
-\lfoot{\lastxmark} % Bottom left footer
-\cfoot{} % Bottom center footer
-\rfoot{Page\ \thepage\ of\ \protect\pageref{LastPage}} % Bottom right footer
-\renewcommand\headrulewidth{0.4pt} % Size of the header rule
-\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
 
-\setlength\parindent{0pt} % Removes all indentation from paragraphs
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
 
 %----------------------------------------------------------------------------------------
-%	CODE INCLUSION CONFIGURATION
+%	CODE
 %----------------------------------------------------------------------------------------
 
-\definecolor{MyDarkGreen}{rgb}{0.0,0.4,0.0} % This is the color used for comments
 \lstloadlanguages{Python} % Load python syntax for listings, for a list of other languages supported see: ftp://ftp.tex.ac.uk/tex-archive/macros/latex/contrib/listings/listings.pdf
 \DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{9} % for bold
 \DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{9}  % for normal
@@ -89,112 +78,39 @@
 
 % Creates a new command to include a python script, the first parameter is the filename of the script (without .py), the second parameter is the caption
 \newcommand{\pythonscript}[2]{
-\begin{itemize}
-\item[]\lstinputlisting[caption=#2,label=#1]{#1.py}
-\end{itemize}
+	\begin{itemize}
+		\item[]\lstinputlisting[caption=#2,label=#1]{#1.py}
+	\end{itemize}
 }
 
 %----------------------------------------------------------------------------------------
-%	DOCUMENT STRUCTURE COMMANDS
-%	Skip this unless you know what you're doing
+%	TITLE SECTION
 %----------------------------------------------------------------------------------------
 
-% Header and footer for when a page split occurs within a problem environment
-\newcommand{\enterQuestionHeader}[1]{
-\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak
-\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{	
+\normalfont \normalsize 
+\textsc{Heidelberg University} \\ [25pt] % Your university, school and/or department name(s)
+\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge IAI Ex## \\ % The assignment title
+\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
 }
 
-% Header and footer for when a page split occurs between problem environments
-\newcommand{\exitQuestionHeader}[1]{
-\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
-\nobreak\extramarks{#1}{}\nobreak
-}
+\author{Martin Huber} % Your name
 
-\setcounter{secnumdepth}{0} % Removes default section numbers
-\newcounter{questionCounter} % Creates a counter to keep track of the number of problems
-
-\newcommand{\questionName}{}
-\newenvironment{question}[1][Question \arabic{questionCounter}]{ % Makes a new environment called question which takes 1 argument (custom name) but the default is "Question #"
-\stepcounter{questionCounter} % Increase counter for number of problems
-\renewcommand{\questionName}{#1} % Assign \questionName the name of the problem
-\section{\questionName} % Make a section in the document with the custom problem count
-\enterQuestionHeader{\questionName} % Header and footer within the environment
-}{
-\exitQuestionHeader{\questionName} % Header and footer after the environment
-}
-
-\newcommand{\problemAnswer}[1]{ % Defines the problem answer command with the content as the only argument
-\noindent\framebox[\columnwidth][c]{\begin{minipage}{0.98\columnwidth}#1\end{minipage}} % Makes the box around the problem answer and puts the content inside
-}
-
-\newcommand{\assignmentSectionName}{}
-\newenvironment{assignmentSection}[1]{ % New environment for sections within assignment problems, takes 1 argument - the name of the section
-\renewcommand{\assignmentSectionName}{#1} % Assign \assignmentSectionName to the name of the section from the environment argument
-\subsection{\assignmentSectionName} % Make a subsection with the custom name of the subsection
-\enterQuestionHeader{\questionName\ [\assignmentSectionName]} % Header and footer within the environment
-}{
-\enterQuestionHeader{\questionName} % Header and footer after the environment
-}
-
-%----------------------------------------------------------------------------------------
-%	NAME AND CLASS SECTION
-%----------------------------------------------------------------------------------------
-
-\newcommand{\assignTitle}{Assignment\ \#1} % Assignment title
-\newcommand{\assignClass}{IAI} % Course/class
-\newcommand{\assignAuthorName}{Max Mustermann} % Your name
-
-%----------------------------------------------------------------------------------------
-%	TITLE PAGE
-%----------------------------------------------------------------------------------------
-
-\title{
-\vspace{2in}
-\textmd{\textbf{\assignClass:\ \assignTitle}}\\
-\vspace{3in}
-}
-
-\author{\textbf{\assignAuthorName}}
-\date{} % Insert date here if you want it to appear below your name
-
-%----------------------------------------------------------------------------------------
+\date{\normalsize\today} % Today's date or a custom date
 
 \begin{document}
 
-\maketitle
-\thispagestyle{empty}
-\newpage
-
-%	QUESTION 1
-%----------------------------------------------------------------------------------------
-
-% To have just one problem per page, simply put a \clearpage after each problem
-
-\begin{question}
-Listing \ref{assignment_example} shows a python script.
-
-\pythonscript{assignment_example}{Sample Python Script With Highlighting}
-
-\lipsum[1]
-\end{question}
+\maketitle % Print the title
 
 %----------------------------------------------------------------------------------------
-%	QUESTION 2
+%	PROBLEM 1
 %----------------------------------------------------------------------------------------
 
-\begin{question}
-\lipsum[2]
+\section{Section 1}
 
-\problemAnswer{
-\begin{center}
-\includegraphics[width=0.75\columnwidth]{example_figure} % Example image
-\end{center}
-
-\lipsum[3-5]
-}
-\end{question}
-
-%----------------------------------------------------------------------------------------
+\pythonscript{assignment_example}{Example Code}
 
 \end{document}
