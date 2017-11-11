@@ -1,6 +1,5 @@
 import collections
-import numpy as np
-from helpers import SquareGrid
+import math
 
 
 class PriorityQueue:
@@ -15,11 +14,8 @@ class PriorityQueue:
         """
         :return: True if the queue is empty, False otherwise.
         """
-        # bool(dict) returns true  if not empty
-        if bool(self.queue):
-            return False
-        else:
-            return True
+        # not bool(dict) returns true  if empty
+        return not bool(self.queue)
 
     def add(self, item, priority):
         """
@@ -51,7 +47,7 @@ def heuristic(node_a, node_b):
     ###
     # Exercise: implement a heuristic for A* search
     ###
-    distance = np.linalg.norm(np.subtract(node_a, node_b))
+    distance = math.sqrt(abs(node_a[0] - node_b[0]) + abs(node_a[1] - node_b[1]))
     return distance
 
 
@@ -72,54 +68,29 @@ def a_star_search(graph, start, goal):
     ###
     # Exercise: implement A* search
     ###
-    # initialize came_from with start and cost with 0
-    came_from[start] = start
-    cost_so_far[start] = 0
-
     # create an instance of PriorityQueue and add first two known nodes
     q = PriorityQueue()
     q.add(start, heuristic(start, goal))
 
-    # expanded nodes
-    expanded = []
-
-    searching = True
+    came_from[start] = None
+    cost_so_far[start] = 0
 
     # search till goal reached
-    while searching:
+    while not q.empty():
         # take cheapest possible step
         current_node = q.pop()
 
-        expanded.append(current_node)
-
-        # update cost_so_far
-        cost_so_far[current_node] = cost_so_far[came_from[current_node]] + \
-                                    heuristic(came_from[current_node], current_node)
-
         if current_node == goal:
-            searching = False
+            break
 
-        # frontier holds feasible neighbors
-        frontier = graph.neighbors(current_node)
+        # update frontier
+        for node in graph.neighbors(current_node):
+            new_cost = cost_so_far[current_node] + heuristic(current_node, node) + heuristic(node, goal)
 
-        # add frontier to PriorityQueue
-        for node in frontier:
-            cost = cost_so_far[current_node] + heuristic(current_node, node) + heuristic(node, goal)
-
-            if node in expanded:
-                continue
-            elif node in q.queue and q.queue[node] > cost:
+            if node not in cost_so_far or new_cost < cost_so_far[node]:
                 came_from[node] = current_node
-                q.add(node, cost)
-            elif node in q.queue and q.queue[node] < cost:
-                continue
-            else:
-                came_from[node] = current_node
-                q.add(node, cost)
-
-        if q.empty():
-            searching = False
-            cost_so_far[current_node] = -1
+                cost_so_far[node] = new_cost
+                q.add(node, new_cost)
 
     return came_from, cost_so_far
 
