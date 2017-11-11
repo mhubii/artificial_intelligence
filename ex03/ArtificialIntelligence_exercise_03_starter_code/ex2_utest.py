@@ -69,6 +69,8 @@ def test():
     for name, (grid, start, goal, cost, time_limit) in grids.iteritems():
         is_ok = True
         try:
+            print('Time limit: ', time_limit, '(%s)' % name)
+
             start_time = time.time()
             came_from, cost_so_far = a_star_search(grid, start, goal)
             duration = time.time() - start_time

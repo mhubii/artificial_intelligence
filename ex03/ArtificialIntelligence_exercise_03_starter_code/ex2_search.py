@@ -80,12 +80,17 @@ def a_star_search(graph, start, goal):
     q = PriorityQueue()
     q.add(start, heuristic(start, goal))
 
+    # expanded nodes
+    expanded = []
+
     searching = True
 
     # search till goal reached
     while searching:
         # take cheapest possible step
         current_node = q.pop()
+
+        expanded.append(current_node)
 
         # update cost_so_far
         cost_so_far[current_node] = cost_so_far[came_from[current_node]] + \
@@ -101,14 +106,20 @@ def a_star_search(graph, start, goal):
         for node in frontier:
             cost = cost_so_far[current_node] + heuristic(current_node, node) + heuristic(node, goal)
 
-            if node in q.queue and q.queue[node] < cost:
+            if node in expanded:
+                continue
+            elif node in q.queue and q.queue[node] > cost:
                 came_from[node] = current_node
                 q.add(node, cost)
-            elif node in q.queue and q.queue[node] > cost:
+            elif node in q.queue and q.queue[node] < cost:
                 continue
             else:
                 came_from[node] = current_node
                 q.add(node, cost)
+
+        if q.empty():
+            searching = False
+            cost_so_far[current_node] = -1
 
     return came_from, cost_so_far
 
