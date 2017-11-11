@@ -78,19 +78,21 @@ def a_star_search(graph, start, goal):
     # search till goal reached
     while not q.empty():
         # take cheapest possible step
-        current_node = q.pop()
+        current = q.pop()
 
-        if current_node == goal:
+        if current == goal:
             break
 
         # update frontier
-        for node in graph.neighbors(current_node):
-            new_cost = cost_so_far[current_node] + heuristic(current_node, node) + heuristic(node, goal)
+        for next in graph.neighbors(current):
+            h = heuristic(next, goal)
+            g = cost_so_far[current] + heuristic(current, next)
+            f = h + g
 
-            if node not in cost_so_far or new_cost < cost_so_far[node]:
-                came_from[node] = current_node
-                cost_so_far[node] = new_cost
-                q.add(node, new_cost)
+            if next not in cost_so_far or f < g:
+                cost_so_far[next] = g
+                came_from[next] = current
+                q.add(next, g)
 
     return came_from, cost_so_far
 
