@@ -92,7 +92,7 @@ def a_star_search(graph, start, goal):
             if next not in cost_so_far or g < cost_so_far[next]:
                 cost_so_far[next] = g
                 came_from[next] = current
-                q.add(next, h)
+                q.add(next, f)
 
     return came_from, cost_so_far
 
