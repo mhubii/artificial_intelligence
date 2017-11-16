@@ -19,7 +19,7 @@ and add packages as usual with:
 pip install <package>
 ```
 
-When using PyCharm, you now need to choose a new interpreter in settings. For setting up an additional kernel in Jupyter Notebook, this [link](https://github.com/jupyter/jupyter/issues/71 "Link to Forum") may be helpful.
+When using PyCharm, you now need to choose a new interpreter in settings. For setting up an additional kernel in Jupyter Notebook, follow these [instructions](http://ipython.readthedocs.io/en/stable/install/kernel_install.html "Link to Forum").
 
 ## Useful Links
 [Artificial Intelligence: A Modern Approach](http://web.cecs.pdx.edu/~mperkows/CLASS_479/2017_ZZ_00/02__GOOD_Russel=Norvig=Artificial%20Intelligence%20A%20Modern%20Approach%20(3rd%20Edition).pdf "Link to PDF")
