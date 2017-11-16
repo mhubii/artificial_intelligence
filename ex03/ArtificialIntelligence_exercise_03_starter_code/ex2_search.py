@@ -47,7 +47,7 @@ def heuristic(node_a, node_b):
     ###
     # Exercise: implement a heuristic for A* search
     ###
-    distance = math.sqrt(abs(node_a[0] - node_b[0]) + abs(node_a[1] - node_b[1]))
+    distance = math.sqrt((node_a[0] - node_b[0])**2 + (node_a[1] - node_b[1])**2)
     return distance
 
 
@@ -89,10 +89,10 @@ def a_star_search(graph, start, goal):
             g = cost_so_far[current] + heuristic(current, next)
             f = h + g
 
-            if next not in cost_so_far or f < g:
+            if next not in cost_so_far or g < cost_so_far[next]:
                 cost_so_far[next] = g
                 came_from[next] = current
-                q.add(next, g)
+                q.add(next, h)
 
     return came_from, cost_so_far
 

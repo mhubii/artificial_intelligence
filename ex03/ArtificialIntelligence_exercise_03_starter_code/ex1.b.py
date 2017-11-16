@@ -10,6 +10,13 @@ def f(x):
     return 0.2 * np.sin(12.5 * x) + (x - 1)**2 - 5
 
 
+def p(y_current, y_next, T):
+    """
+    Probability.
+    """
+    return np.exp(-(y_next-y_current)/T)
+
+
 def minimize(x, y, start_position):
     """
     Minimize the energy function.
@@ -18,13 +25,28 @@ def minimize(x, y, start_position):
     :param start_position: int, initial position of the agent
     :return: position with the minimal found value of energy function
     """
-    best_pos = 0
+    best_pos = start_position
+    T = 100
+    alpha = 10
+
+    # update the best position
     for iter_num in xrange(400):
         ###
         # Exercise: implement Simulated annealing
         # update best_pos if found the better one
         ###
-        pass
+        # by default the algorithm walks to the right
+        y_current = y[best_pos]
+        y_next = y[best_pos + 1]
+
+        if y_current < y_next:
+            prob = p(y_current, y_next, alpha * T)
+            choice = [best_pos, best_pos + 1]
+            best_pos = np.random.choice(a=choice, size=1, p=[1-prob, prob])[0]
+        else:
+            best_pos += 1
+
+        alpha /= np.log(iter_num+2)
 
     assert 0 <= best_pos < len(y), 'incorrect index'
     return best_pos
