@@ -1,5 +1,5 @@
 import collections
-import math
+import numpy as np
 
 
 class PriorityQueue:
@@ -47,7 +47,7 @@ def heuristic(node_a, node_b):
     ###
     # Exercise: implement a heuristic for A* search
     ###
-    distance = math.sqrt((node_a[0] - node_b[0])**2 + (node_a[1] - node_b[1])**2)
+    distance = np.sqrt((node_a[0] - node_b[0])**2 + (node_a[1] - node_b[1])**2)
     return distance
 
 
@@ -69,6 +69,8 @@ def a_star_search(graph, start, goal):
     # Exercise: implement A* search
     ###
     # create an instance of PriorityQueue and add first two known nodes
+    graph.walls = set(graph.walls)
+
     q = PriorityQueue()
     q.add(start, heuristic(start, goal))
 
