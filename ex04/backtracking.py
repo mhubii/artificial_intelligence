@@ -19,52 +19,50 @@ class Backtracking():
     def __init__(self, graph):
         self.graph = graph
         self.assignment = OrderedDict()
-        self.unassigned = OrderedDict()
-        self.assignment = self.graph.nodes.fromkeys(self.graph.nodes)
-        self.unassigned = self.graph.nodes.fromkeys(self.graph.nodes)
+        self.assignment = self.assignment.fromkeys(self.graph.nodes.keys())
 
     def backtrack(self):
-        if all(value or value == 0 for value in self.assignment.itervalues()):
+        if self.complete():
             return self.assignment
         var = self.select_unassigned_variable()
-        for value in self.unassigned[var]:
-            self.unassigned[var].remove(value)
-            if self.constraints(var, value):
-                self.assignment[var] = value
+        for val in self.order_domain_values(var):
+            if self.consistent(var, val):
+                self.assignment[var] = val
                 result = self.backtrack()
-                if not result or result == 0:
-                    return value
+                if result is not self.failure():
+                    return result
                 self.assignment[var] = None
-        return var
+        return self.failure()
+
+    def complete(self):
+        if all(val is not None for val in self.assignment.itervalues()):
+            return self.assignment['A'] + self.assignment['B'] == self.assignment['C'] + 10*self.assignment['U']
+        else:
+            return False
 
     def select_unassigned_variable(self):
-        # from assignment select key with empty domain
-        for key, domain in self.unassigned.iteritems():
-            if not domain:
-                # refresh domain
-                self.unassigned[key] = self.graph.nodes[key]
+        for key, val in self.assignment.iteritems():
+            if val is None:
                 return key
 
-    def constraints(self, var, value):
-        # all different
-        temp = dict(self.assignment)
-        del temp['U']
-        seen = set()
-        seen.add(value)
-        all_diff = True
-        if var != 'U':
-            all_diff = not any(val in seen and val != None or seen.add(val) for val in temp.itervalues())
+    def order_domain_values(self, var):
+        return self.graph.nodes[var]
 
-        # check sum
-        true_sum = True
-        if all(value or value == 0 for value in temp.itervalues()):
-            a = self.assignment['A']
-            b = self.assignment['B']
-            c = self.assignment['C']
-            if a + b != c + 10*value:
-                true_sum = False
+    def consistent(self, var, val):
+        unique = True
+        sum = True
+        if var is not 'U':
+            seen = set()
+            seen.add(val)
+            temp = dict(self.assignment)
+            del temp['U']
+            unique = not any(value in seen and value is not None or seen.add(value) for value in temp.itervalues())
+        if var is 'U':
+            sum = (self.assignment['A'] + self.assignment['B'] == self.assignment['C'] + 10*val)
+        return unique and sum
 
-        return all_diff and true_sum
+    def failure(self):
+        return 'failure'
 
 
 if __name__ == '__main__':
