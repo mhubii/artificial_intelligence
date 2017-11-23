@@ -34,6 +34,13 @@ class Backtracking():
                 self.assignment[var] = None
         return self.failure()
 
+    def forward_checking(self, var):
+        temp = self.graph.nodes[var]
+        for ass_val in self.assignment.itervalues():
+            if var is not 'U' and ass_val is not None:
+                temp.remove(ass_val)
+        return temp
+
     def complete(self):
         if all(val is not None for val in self.assignment.itervalues()):
             return self.assignment['A'] + self.assignment['B'] == self.assignment['C'] + 10*self.assignment['U']
@@ -46,7 +53,8 @@ class Backtracking():
                 return key
 
     def order_domain_values(self, var):
-        return self.graph.nodes[var]
+        feasible = self.forward_checking(var)
+        return feasible
 
     def consistent(self, var, val):
         unique = True
