@@ -21,7 +21,7 @@ for epoch in range(100):
     for i, sample in enumerate(train_loader):
         # extract features and label from sample. Convert to torch variables.
         features = Variable(torch.from_numpy(sample['features']).float())
-        label = Variable(torch.from_numpy(np.asarray(sample['labels'])).float())
+        label = Variable(torch.FloatTensor([sample['labels']]))
 
         # forward -> optimize -> backward
         optimizer.zero_grad()  # zero the gradient buffer
@@ -30,4 +30,4 @@ for epoch in range(100):
         loss.backward()
         optimizer.step()
 
-torch.save(net.state_dict(), 'net_one_trained.pk1')
+torch.save(net.state_dict(), 'trained_net/net_one_trained.pk1')
