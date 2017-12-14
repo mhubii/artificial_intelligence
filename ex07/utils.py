@@ -57,11 +57,12 @@ class ToyDataset(Dataset):
     """ A toy dataset class which implements the abstract class torch.utils.data.Dataset .
     (for reference see http://pytorch.org/docs/master/data.html#torch.utils.data.Dataset)
     """
-    def __init__(self):
-        pass
+    def __init__(self, txt_filepath):
+        self.data, self.target = load_dataset(txt_filepath)
 
     def __getitem__(self, index):
-        return NotImplemented
+        sample = {'x': self.data[index], 'y': self.target[index]}
+        return sample
 
     def __len__(self):
-        return NotImplemented
+        return self.data.shape[0]
