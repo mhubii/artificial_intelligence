@@ -4,11 +4,18 @@ import torch.nn as nn
 class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
-        self.conv1 = nn.Conv2d(1, 3, kernel_size=5)
-        self.conv2 = nn.Conv2d(1, 3, kernel_size=5)
-        self.conv3 = nn.Conv2d(1, 3, kernel_size=5)
-        self.fc1
-        self.fc2
+        self.layer1 = nn.Sequential(
+            nn.Linear(2, 10),
+            nn.ReLU()
+        )
+        self.layer2 = nn.Sequential(
+            nn.Linear(10, 10),
+            nn.ReLU()
+        )
+        self.fc = nn.Linear(10, 1)
 
     def forward(self, x):
-        pass
+        out = self.layer1(x)
+        out = self.layer2(out)
+        out = self.fc(out)
+        return out

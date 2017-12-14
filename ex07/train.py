@@ -1,10 +1,12 @@
 import torch
 import torch.nn as nn
+from torch.autograd import Variable
+import numpy as np
 import utils
 import net_one
 
 # data loader
-loc = 'data/tripple_junction_data_training.txt'
+loc = 'data/triple_junction_data_training.txt'
 train_loader = utils.ToyDataset(loc)
 
 # model
@@ -17,17 +19,15 @@ optimizer = torch.optim.SGD(net.parameters(), lr=0.01)
 # train the model
 for epoch in range(100):
     for i, sample in enumerate(train_loader):
-        # extract features and label from sample
-        feature = sample['x']
-        label = sample['y']
+        # extract features and label from sample. Convert to torch variables.
+        features = Variable(torch.from_numpy(sample['features']).float())
+        label = Variable(torch.from_numpy(np.asarray(sample['labels'])).float())
 
         # forward -> optimize -> backward
         optimizer.zero_grad()  # zero the gradient buffer
-        outputs = net(feature)
-        loss = criterion(feature, sample)
+        outputs = net(features)
+        loss = criterion(outputs, label)
         loss.backward()
         optimizer.step()
 
 torch.save(net.state_dict(), 'net_one_trained.pk1')
-
-

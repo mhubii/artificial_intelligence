@@ -1,5 +1,7 @@
 from torch.utils.data import Dataset, DataLoader
 
+import torch
+import torch.nn as nn
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
@@ -17,7 +19,7 @@ def load_dataset(txt_filepath):
     coords_x,coords_y,labels = np.loadtxt(txt_filepath).T
     data = np.array([coords_x,coords_y]).T
     # labels should starts from 0
-    target = labels - 1 
+    target = labels - 1
     return data, target
 
 
@@ -61,7 +63,7 @@ class ToyDataset(Dataset):
         self.data, self.target = load_dataset(txt_filepath)
 
     def __getitem__(self, index):
-        sample = {'x': self.data[index], 'y': self.target[index]}
+        sample = {'features': self.data[index], 'labels': self.target[index]}
         return sample
 
     def __len__(self):
