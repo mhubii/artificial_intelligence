@@ -3,6 +3,7 @@ import utils
 import numpy as np
 import matplotlib.pyplot as plt
 import net_one
+import utils
 
 # build net
 net = net_one.Net()
@@ -22,6 +23,13 @@ for element in grid:
     prediction[i] = net(element)
     i += 1
 
+# visualize toy data set
+data, target = utils.load_dataset('data/triple_junction_data_training.txt')
+data += 1
+data *= 25
+utils.visualize_toy_dataset(data, target)
+
+# visualize prediction
 prediction = prediction.reshape([50, 50])
 plt.imshow(prediction)
 plt.show()
