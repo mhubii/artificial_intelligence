@@ -1,7 +1,6 @@
-import utils
 import torch.nn as nn
 
-# define the model
+
 class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
@@ -11,5 +10,5 @@ class Net(nn.Module):
         self.fc1
         self.fc2
 
-    def forward(self):
+    def forward(self, x):
         pass

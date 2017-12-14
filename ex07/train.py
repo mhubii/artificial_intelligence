@@ -16,11 +16,15 @@ optimizer = torch.optim.SGD(net.parameters(), lr=0.01)
 
 # train the model
 for epoch in range(100):
-    for i, (x, y) in enumerate(train_loader):
+    for i, sample in enumerate(train_loader):
+        # extract features and label from sample
+        feature = sample['x']
+        label = sample['y']
+
         # forward -> optimize -> backward
         optimizer.zero_grad()  # zero the gradient buffer
-        outputs = net(x)
-        loss = criterion(x, y)
+        outputs = net(feature)
+        loss = criterion(feature, sample)
         loss.backward()
         optimizer.step()
 
