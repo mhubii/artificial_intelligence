@@ -27,9 +27,9 @@ dic = {0: 'T-shirt/top',
        8: 'Bag',
        9: 'Ankle boot'}
 
-plt.title(dic[labels[1010]])
-plt.imshow(images[1010], cmap='gray')
-plt.show()
+plt.title(dic[labels[1]])
+plt.imshow(images[1], cmap='gray')
+plt.savefig('pullover.png')
 
 
 class Net(nn.Module):
