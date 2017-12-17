@@ -1,0 +1,43 @@
+Nr. 2
+Parameters
+layer1
+	conv1
+	10x1x5x5  = 250
+	relu
+	10        = 10
+
+layer2
+	conv2
+	20x10x5x5 = 5000
+	relu
+	20        = 20
+
+layer3
+	fc1
+	50x320    = 16000
+	relu
+	50        = 50
+
+layer4
+	fc2
+	10x50     = 500
+	relu
+	10        = 10
+
+
+	total     = 21840
+
+Accuracy
+84.84 %
+
+Nr. 3
+Added RandomRotation(30)
+      RandomHorizontalFlip()
+
+Accuracy
+78%
+
+Nr. 4
+Accuracy
+86.20%
+
