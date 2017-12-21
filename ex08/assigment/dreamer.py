@@ -27,10 +27,10 @@ class Net(nn.Module):
 
 
 classifier = Net()
-classifier.load_state_dict(torch.load('best_model_mnist.pth'))
+classifier.load_state_dict(torch.load('best_model_fashion_mnist.pth'))
 
 # select the target class
-target_class = 1
+target_class = 0
 
 # fix the network weights
 for param in classifier.parameters():
@@ -56,8 +56,8 @@ output.backward()
 grad[0, target_class] = -output.grad
 
 # set learning parameters of the gradient descend
-LR = 0.5  # worked well for me
-NUM_ITER = 10000
+LR = 0.1  # worked well for me
+NUM_ITER = 1000
 # start with a black image
 # initialized
 
@@ -88,4 +88,4 @@ for i in range(NUM_ITER):
 # show image
 max_activation = imagevar.data.numpy().reshape([28, 28])
 plt.imshow(max_activation)
-plt.show()
+plt.savefig('thsirt.png')
