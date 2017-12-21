@@ -17,7 +17,7 @@ criterion = nn.MSELoss()
 optimizer = torch.optim.SGD(net.parameters(), lr=0.01)
 
 # train the model
-for epoch in range(100):
+for epoch in range(1000):
     for i, sample in enumerate(train_loader):
         # extract features and label from sample. Convert to torch variables.
         features = Variable(torch.from_numpy(sample['features']).float())

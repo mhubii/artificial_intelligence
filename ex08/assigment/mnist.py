@@ -51,6 +51,7 @@ test_loader = torch.utils.data.DataLoader(
                    ])),
     batch_size=args.test_batch_size, shuffle=True, **kwargs)
 
+
 class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
@@ -71,12 +72,11 @@ class Net(nn.Module):
 
 
 model = Net()
-model.load_state_dict(torch.load('best_model_mnist.pth'))
 
 if args.cuda:
     model.cuda()
 
-optimizer = optim.SGD(model.fc2.parameters(), lr=args.lr, momentum=args.momentum)
+optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
 
 
 def train(epoch):
@@ -129,10 +129,10 @@ for epoch in range(1, args.epochs + 1):
     if acc > best_acc:
         print('New best accuracy achieved: {:.2f}%\n'.format(acc))
         best_acc = acc
-        torch.save(model.state_dict(), 'best_model_fine_fashion_mnist.pth')
+        torch.save(model.state_dict(), 'best_model_fashion_mnist.pth')
 
-fig = plt.figure()
-fig.suptitle('Finetuning')
-plt.subplot(121), plt.plot(np.arange(args.epochs), loss, label='Loss', color='r'), plt.legend(), plt.xlabel('Epochs')
-plt.subplot(122), plt.plot(np.arange(args.epochs), accuracy, label='Accuracy', color='b'), plt.legend(), plt.xlabel('Epochs')
-plt.savefig('../finetuning.png')
+#fig = plt.figure()
+#fig.suptitle('Finetuning')
+#plt.subplot(121), plt.plot(np.arange(args.epochs), loss, label='Loss', color='r'), plt.legend(), plt.xlabel('Epochs')
+#plt.subplot(122), plt.plot(np.arange(args.epochs), accuracy, label='Accuracy', color='b'), plt.legend(), plt.xlabel('Epochs')
+#plt.savefig('../finetuning.png')
