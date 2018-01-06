@@ -1,6 +1,7 @@
 from exercise_09_starter import Autoencoder, add_white_noise
 import numpy as np
 import torch
+from torch.utils.data.sampler import SequentialSampler
 from torch.autograd import Variable
 from torchvision import datasets, transforms
 from sklearn.manifold import TSNE
@@ -8,13 +9,14 @@ import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 
 # Load data set.
-loader = torch.utils.data.DataLoader(
-    datasets.FashionMNIST('data', train=True, download=True,
-                          transform=transforms.Compose([
-                              transforms.ToTensor(),
-                              transforms.Normalize((0.1307,), (0.3081,))
-                          ])),
-    batch_size=500, shuffle=True)
+dataset = datasets.FashionMNIST('data', train=True, download=True,
+                                transform=transforms.Compose([
+                                    transforms.ToTensor(),
+                                    transforms.Normalize((0.1307,), (0.3081,))
+                                    ]))
+
+loader = torch.utils.data.DataLoader(dataset=dataset,
+                                     batch_size=500, sampler=SequentialSampler(dataset))
 
 # Load model.
 model = Autoencoder()
@@ -29,7 +31,7 @@ encoded_data = model.forward_encoder(data)
 encoded_data = encoded_data.data.numpy()
 
 # Use t-SNE to reduce dimensionality.
-tsne = TSNE(n_components=2)
+tsne = TSNE(n_components=2, random_state=0)
 data_2d = tsne.fit_transform(encoded_data)
 
 # Plot results.
@@ -48,7 +50,7 @@ dic = {0: 'T-shirt/top',
 
 plt.figure()
 
-for idx, lab in enumerate(np.unique(label)):
+for lab in np.unique(label):
     plt.scatter(x=data_2d[label == lab, 0],
                 y=data_2d[label == lab, 1],
                 c=color_map[lab], label=dic[lab])
