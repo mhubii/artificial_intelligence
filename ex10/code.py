@@ -12,11 +12,11 @@ from torch.autograd import Variable
 # features: (numpy array) N x D feature matrix
 # images: (numpy array) N x H x W x 3
 # path_save: string (path where you want to save the final image)
-def apply_tnse_img(features, images, path_save='./tsne_img.png'):
+def apply_tsne_img(features, images, path_save='img/tsne_img.png'):
 
-    tnse = TSNE(n_components=2, init='pca', n_iter=1000, random_state=1254, perplexity=30, metric='euclidean')
+    tsne = TSNE(n_components=2, init='pca', n_iter=1000, random_state=1254, perplexity=30, metric='euclidean')
     # np.set_printoptions(False)
-    vis_data = tnse.fit_transform(features)
+    vis_data = tsne.fit_transform(features)
     vis_x = vis_data[:, 0]
     vis_y = vis_data[:, 1]
 
@@ -40,7 +40,7 @@ def apply_tnse_img(features, images, path_save='./tsne_img.png'):
         res_y = int(sy / float(sx) * res)
 
     # impaint images
-    canvas = np.ones((res_x + max_width, res_y + max_height, 3))
+    canvas = np.ones((res_x + max_width, res_y + max_height, 1))
     x_coords = np.linspace(x_min, x_max, res_x)
     y_coords = np.linspace(y_min, y_max, res_y)
     for x, y, image in zip(vis_x, vis_y, images):
