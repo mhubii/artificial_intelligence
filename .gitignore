@@ -5,3 +5,13 @@ assignment_template/*.synctex.gz
 
 ### my solutions ###
 /my_solutions
+
+### pychace ###
+*__pycache__
+
+### data ###
+ex08/data
+ex09/data
+
+### jupyter notebooks ###
+*.ipynb
