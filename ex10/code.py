@@ -54,12 +54,13 @@ def apply_tsne_img(features, images, path_save='img/tsne_img.png'):
 
     # plot image
     fig = plt.figure()
+    canvas = np.squeeze(canvas)
     plt.imshow(canvas)
+
+    plt.title('k-Means clustered MNIST Digits')
 
     mng = plt.get_current_fig_manager()
     mng.full_screen_toggle()
-    plt.show(False)
-    plt.pause(3)
     fig.savefig(path_save, bbox_inches='tight')
 
 

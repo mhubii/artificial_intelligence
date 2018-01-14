@@ -60,3 +60,9 @@ class VAE(nn.Module):
         log_var = self.log_var(out)
 
         return log_var
+
+    def forward_decoder(self, mean):
+        # Decode.
+        out = self.decoder(mean)
+
+        return out
