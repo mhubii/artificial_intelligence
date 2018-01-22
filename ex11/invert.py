@@ -101,7 +101,7 @@ def invert(image, network='alexnet', size=227, layer='features.4', alpha=6, beta
     print(model)
 
     img_ = transform(Image.open(image)).unsqueeze(0)
-    print img_.size()
+    print(img_.size())
 
     activations = []
 

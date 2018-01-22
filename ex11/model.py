@@ -3,7 +3,7 @@ import torch.nn.functional as F
 
 
 class Generator(nn.Module):
-    def __int__(self):
+    def __init__(self):
         super(Generator, self).__init__()
         self.fc1 = nn.Linear(100, 128)
         self.fc2 = nn.Linear(128, 784)
@@ -15,11 +15,11 @@ class Generator(nn.Module):
         out = F.sigmoid(out)
         return out
 
-    def weights_init(self):
-        self.fc1.weight.data.normal_(0., 0.075**2)
-        self.fc1.bias.data.normal_(0., 0.075**2)
-        self.fc2.weight.data.normal_(0., 0.075**2)
-        self.fc2.bias.data.normal_(0., 0.075 ** 2)
+    def weight_init(self, mean=0., var=0.075**2):
+        for m in self._modules:
+            if isinstance(m, nn.Linear):
+                m.weight.data.normal_(mean, var)
+                m.bias.data.normal_(mean, var)
 
 
 class Discriminator(nn.Module):
@@ -35,10 +35,8 @@ class Discriminator(nn.Module):
         out = F.sigmoid(out)
         return out
 
-    def weights_init(self):
-        self.fc1.weight.data.normal_(0, 0.075**2)
-        self.fc1.bias.data.normal_(0., 0.075 ** 2)
-        self.fc2.weight.data.normal_(0, 0.075**2)
-        self.fc2.bias.data.normal_(0., 0.075 ** 2)
-
-
+    def weight_init(self, mean=0., var=0.075**2):
+        for m in self._modules:
+            if isinstance(m, nn.Linear):
+                m.weight.data.normal_(mean, var)
+                m.bias.data.normal_(mean, var)
